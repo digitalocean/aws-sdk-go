@@ -210,6 +210,9 @@ func (l *HandlerList) SetFrontNamed(n NamedHandler) {
 // Run executes all handlers in the list with a given request object.
 func (l *HandlerList) Run(r *Request) {
 	for i, h := range l.list {
+		if h.Fn == nil {
+			continue
+		}
 		h.Fn(r)
 		item := HandlerListRunItem{
 			Index: i, Handler: h, Request: r,
